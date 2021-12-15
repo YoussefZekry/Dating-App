@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\MH\\source\\repos\\AmazingProject\\AmazingProject\\AmazingProject.csproj": {}
+    "C:\\Users\\Shady\\source\\My-Github\\Dating-App\\AmazingProject\\AmazingProject\\AmazingProject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\MH\\source\\repos\\AmazingProject\\AmazingProject\\AmazingProject.csproj": {
+    "C:\\Users\\Shady\\source\\My-Github\\Dating-App\\AmazingProject\\AmazingProject\\AmazingProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MH\\source\\repos\\AmazingProject\\AmazingProject\\AmazingProject.csproj",
+        "projectUniqueName": "C:\\Users\\Shady\\source\\My-Github\\Dating-App\\AmazingProject\\AmazingProject\\AmazingProject.csproj",
         "projectName": "AmazingProject",
-        "projectPath": "C:\\Users\\MH\\source\\repos\\AmazingProject\\AmazingProject\\AmazingProject.csproj",
-        "packagesPath": "C:\\Users\\MH\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MH\\source\\repos\\AmazingProject\\AmazingProject\\obj\\",
+        "projectPath": "C:\\Users\\Shady\\source\\My-Github\\Dating-App\\AmazingProject\\AmazingProject\\AmazingProject.csproj",
+        "packagesPath": "C:\\Users\\Shady\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Shady\\source\\My-Github\\Dating-App\\AmazingProject\\AmazingProject\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\MH\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Shady\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +22,8 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://www.nuget.org/api/v2": {}
         },
         "frameworks": {
           "net5.0": {
@@ -105,7 +106,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }
