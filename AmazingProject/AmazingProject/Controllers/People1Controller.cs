@@ -56,7 +56,7 @@ namespace AmazingProject.Controllers
             if (await _repo.SaveAll())
                 return NoContent();
 
-            throw new Exception($"Updating Person {id} failed on save");
+            throw new Exception($"Updating Person {id} failedddd on save");
         }
     }
 }
