@@ -36,7 +36,7 @@ namespace AmazingProject.Controllers
             return Ok(peopleToReturn);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name ="GetPerson")]
         public async Task<IActionResult> GetPerson(int id)
         {
             var person = await _repo.GetPerson(id);
@@ -56,7 +56,7 @@ namespace AmazingProject.Controllers
             if (await _repo.SaveAll())
                 return NoContent();
 
-            throw new Exception($"Updating Person {id} failedddd on save");
+            throw new Exception($"Updating Person {id} failed on save");
         }
     }
 }

@@ -27,6 +27,8 @@ namespace AmazingProject.Helpers
             CreateMap<photo, PhotoForReturnDto>();
 
             CreateMap<PhotoForCreationDto, photo>();
+
+            CreateMap<PersonForRegisterDto, Person>();
         }
     }
 }

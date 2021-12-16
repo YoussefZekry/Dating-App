@@ -37,14 +37,12 @@ namespace AmazingProject.Controllers
             if (await _repo.PersonExists(personForRegisterDto.Username))
                 return BadRequest("Username already exists");
 
-            var personToCreate = new Person
-            {
-                Username = personForRegisterDto.Username
-            };
+            var personToCreate = _mapper.Map<Person>(personForRegisterDto);
 
-            var CreatedPerson = await _repo.Register(personToCreate, personForRegisterDto.Password);
+            var createdPerson = await _repo.Register(personToCreate, personForRegisterDto.Password);
+            var personToReturn = _mapper.Map<PersonForDetailedDto>(createdPerson);
 
-            return StatusCode(201);
+            return CreatedAtAction("GetPerson", new { Controller = "Peope1", id = createdPerson.Id },personToReturn);
         }
 
         [HttpPost("login")]
