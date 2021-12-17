@@ -56,6 +56,7 @@ namespace AmazingProject
                     };
                 });
             services.AddMvc(options => options.EnableEndpointRouting = false);
+            services.AddScoped<LogPersonActivity>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,5 +1,6 @@
 ﻿using AmazingProject.Data;
 using AmazingProject.Dtos;
+using AmazingProject.Helpers;
 using AmazingProject.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -14,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace AmazingProject.Controllers
 {
+    [ServiceFilter(typeof(LogPersonActivity))]
     [Authorize]
     [Route("[Controller]")]
     [ApiController]
