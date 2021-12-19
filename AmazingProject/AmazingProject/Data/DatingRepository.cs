@@ -1,4 +1,5 @@
-﻿using AmazingProject.Models;
+﻿using AmazingProject.Helpers;
+using AmazingProject.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -31,10 +32,32 @@ namespace AmazingProject.Data
             return await _context.Photos.Where(p => p.personId == personId).FirstOrDefaultAsync(p => p.IsMain);
         }
 
-        public async Task<IEnumerable<Person>> GetPeople()
+        public async Task<PagedList<Person>> GetPeople(PersonParams personParams)
         {
-            var people = await _context.people.Include(p => p.Photos).ToListAsync();
-            return people;
+            var people = _context.people.Include(p => p.Photos).OrderByDescending(p =>p.LastActive).AsQueryable();
+            people = people.Where(p => p.Id != personParams.PersonId);
+            people = people.Where(p => p.Gender == personParams.Gender);
+            if (personParams.MinAge != 18 || personParams.MaxAge != 99)
+            {
+                var minDob = DateTime.Today.AddYears(-personParams.MaxAge - 1);
+                var maxDob = DateTime.Today.AddYears(-personParams.MinAge);
+                people = people.Where(p => p.DateOfBirth >= minDob && p.DateOfBirth <= maxDob);
+            }
+
+            if (!string.IsNullOrEmpty(personParams.OrderBy))
+            {
+                switch (personParams.OrderBy)
+                {
+                    case "created":
+                        people = people.OrderByDescending(p => p.Created);
+                        break;
+                    default:
+                        people = people.OrderByDescending(p => p.LastActive);
+                        break;
+                }
+            }
+
+            return await PagedList<Person>.CreateAsync(people, personParams.PageNumber, personParams.PageSize);
         }
 
         public async Task<Person> GetPerson(int id)

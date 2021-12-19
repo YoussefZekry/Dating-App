@@ -15,6 +15,8 @@ namespace AmazingProject.Models
         public string LastName { get; set; }
         public String Gender { get; set; }
         public DateTime DateOfBirth { get; set; }
+        public string KnownAs { get; set; }
+        public DateTime Created { get; set; }
         public DateTime LastActive { get; set; }
         public String Introduction { get; set; }
         public string LookingFor { get; set; }

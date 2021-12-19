@@ -31,10 +31,18 @@ namespace AmazingProject.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetPeople()
+        public async Task<IActionResult> GetPeople([FromQuery]PersonParams personParams)
         {
-            var people = await _repo.GetPeople();
+            var currentPersonId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var personFromRepo = await _repo.GetPerson(currentPersonId);
+            personParams.PersonId = currentPersonId;
+            if (string.IsNullOrEmpty(personParams.Gender))
+            {
+                personParams.Gender = personParams.Gender == "male" ? "female" : "male";
+            }
+            var people = await _repo.GetPeople(personParams);
             var peopleToReturn = _mapper.Map<IEnumerable<PersonForListDto>>(people);
+            Response.AddPagination(people.CurrentPage, people.PageSize, people.TotalCount, people.TotalPages);
             return Ok(peopleToReturn);
         }
 
