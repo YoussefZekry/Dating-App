@@ -11,7 +11,7 @@ namespace AmazingProject.Data
     {
         public static void SeedPeople(DataContext context)
         {
-            if (!context.people.Any())
+            if (!context.People.Any())
             {
                 var personData = System.IO.File.ReadAllText("Data/PersonSeedData.json");
                 var people = JsonConvert.DeserializeObject<List<Person>>(personData);
@@ -23,7 +23,7 @@ namespace AmazingProject.Data
                     person.PasswordHash = passwordhash;
                     person.PasswordSalt = passwordSalt;
                     person.Username = person.Username.ToLower();
-                    context.people.Add(person);
+                    context.People.Add(person);
                 }
 
                 context.SaveChanges();

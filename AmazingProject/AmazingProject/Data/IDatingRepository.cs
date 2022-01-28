@@ -16,5 +16,6 @@ namespace AmazingProject.Data
         Task<Person> GetPerson(int id);
         Task<photo> GetPhoto(int id);
         Task<photo> GetMainPhotoForPerson(int personId);
+        Task<Like> GetLike(int personId, int recipientId);
     }
 }

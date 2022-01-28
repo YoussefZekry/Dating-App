@@ -24,7 +24,7 @@ namespace AmazingProject.Data
             person.PasswordHash = passwordHash;
             person.PasswordSalt = passwordSalt;
 
-            await _Context.people.AddAsync(person);
+            await _Context.People.AddAsync(person);
             await _Context.SaveChangesAsync();
 
             return person;
@@ -43,7 +43,7 @@ namespace AmazingProject.Data
         //Login method
         public async Task<Person> Login(string username, string password)
         {
-            var person = await _Context.people.Include(p => p.Photos).FirstOrDefaultAsync(x => x.Username == username);
+            var person = await _Context.People.Include(p => p.Photos).FirstOrDefaultAsync(x => x.Username == username);
 
             if (person == null)
                 return null;
@@ -73,7 +73,7 @@ namespace AmazingProject.Data
         //checks if peron already exist or not.
         public async Task<bool> PersonExists(string username)
         {
-            if (await _Context.people.AnyAsync(x => x.Username == username))
+            if (await _Context.People.AnyAsync(x => x.Username == username))
                 return true;
 
             return false;

@@ -25,7 +25,7 @@ namespace AmazingProject.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPeople()
         {
-            var People = await _context.people.ToListAsync();
+            var People = await _context.People.ToListAsync();
             return Ok(People);
         }
 
@@ -33,7 +33,7 @@ namespace AmazingProject.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPerson(int id)
         {
-            var Person = await _context.people.FirstOrDefaultAsync(x => x.Id == id);
+            var Person = await _context.People.FirstOrDefaultAsync(x => x.Id == id);
             return Ok(Person);
         }
     }

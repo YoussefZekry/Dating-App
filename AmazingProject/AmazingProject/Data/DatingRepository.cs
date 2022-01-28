@@ -27,6 +27,11 @@ namespace AmazingProject.Data
             _context.Remove(entity);
         }
 
+        public async Task<Like> GetLike(int personId, int recipientId)
+        {
+            return await _context.Likes.FirstOrDefaultAsync(p => p.LikerId == personId && p.LikeeId == recipientId);
+        }
+
         public async Task<photo> GetMainPhotoForPerson(int personId)
         {
             return await _context.Photos.Where(p => p.personId == personId).FirstOrDefaultAsync(p => p.IsMain);
@@ -34,9 +39,22 @@ namespace AmazingProject.Data
 
         public async Task<PagedList<Person>> GetPeople(PersonParams personParams)
         {
-            var people = _context.people.Include(p => p.Photos).OrderByDescending(p =>p.LastActive).AsQueryable();
+            var people = _context.People.Include(p => p.Photos).OrderByDescending(p =>p.LastActive).AsQueryable();
             people = people.Where(p => p.Id != personParams.PersonId);
             people = people.Where(p => p.Gender == personParams.Gender);
+            
+            if (personParams.Likers)
+            {
+                var personLikers = await GetPersonLikes(personParams.PersonId, personParams.Likers);
+                people = people.Where(p => personLikers.Contains(p.Id));
+            }
+
+            if(personParams.Likees)
+            {
+                var personLikees = await GetPersonLikes(personParams.PersonId, personParams.Likers);
+                people = people.Where(p => personLikees.Contains(p.Id));
+            }
+
             if (personParams.MinAge != 18 || personParams.MaxAge != 99)
             {
                 var minDob = DateTime.Today.AddYears(-personParams.MaxAge - 1);
@@ -62,7 +80,7 @@ namespace AmazingProject.Data
 
         public async Task<Person> GetPerson(int id)
         {
-            var person = await _context.people.Include(p => p.Photos).FirstOrDefaultAsync(per => per.Id == id);
+            var person = await _context.People.Include(p => p.Photos).FirstOrDefaultAsync(per => per.Id == id);
             return person;
         }
 
@@ -70,6 +88,20 @@ namespace AmazingProject.Data
         {
             var photo = await _context.Photos.FirstOrDefaultAsync(p => p.Id == id);
             return photo;
+        }
+
+        private async Task<IEnumerable<int>> GetPersonLikes(int id,bool likers)
+        {
+            var person = await _context.People.Include(x => x.Likers).Include(x => x.Likees).FirstOrDefaultAsync(p => p.Id == id);
+            if (likers)
+            {
+                return person.Likers.Where(p => p.LikeeId == id).Select(i => i.LikerId);
+            }
+            else
+            {
+                return person.Likees.Where(p => p.LikerId == id).Select(i => i.LikeeId);
+            }
+            
         }
 
         public async Task<bool> SaveAll()
